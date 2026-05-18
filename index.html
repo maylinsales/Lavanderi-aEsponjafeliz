@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lavandería La Esponja Feliz - ¡Frescura bajo el mar!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --amarillo-bob: #f7d02c;
+            --azul-mar: #0084ff;
+            --azul-claro: #e1f5fe;
+            --azul-oscuro: #007bb5;
+            --blanco: #ffffff;
+            --negro-texto: #333333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #f4f7f6;
+            color: var(--negro-texto);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- ANIMACIÓN DE BURBUJAS --- */
+        .bubbles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .bubble {
+            position: absolute;
+            bottom: -100px;
+            background-color: rgba(0, 174, 239, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            opacity: 0;
+            animation: rise 15s infinite ease-in;
+        }
+
+        .bubble:nth-child(1) { width: 40px; height: 40px; left: 10%; animation-duration: 10s; }
+        .bubble:nth-child(2) { width: 20px; height: 20px; left: 20%; animation-duration: 13s; animation-delay: 1s; }
+        .bubble:nth-child(3) { width: 50px; height: 50px; left: 35%; animation-duration: 18s; animation-delay: 2s; }
+        .bubble:nth-child(4) { width: 30px; height: 30px; left: 50%; animation-duration: 12s; animation-delay: 0.5s; }
+        .bubble:nth-child(5) { width: 60px; height: 60px; left: 65%; animation-duration: 20s; animation-delay: 3s; }
+        .bubble:nth-child(6) { width: 25px; height: 25px; left: 80%; animation-duration: 14s; animation-delay: 1.5s; }
+        .bubble:nth-child(7) { width: 45px; height: 45px; left: 90%; animation-duration: 16s; animation-delay: 2.5s; }
+
+        @keyframes rise {
+            0% { bottom: -100px; transform: translateX(0); opacity: 0; }
+            5% { opacity: 1; }
+            50% { transform: translateX(50px); }
+            100% { bottom: 1080px; transform: translateX(-50px); opacity: 0; }
+        }
+
+        /* --- ENCABEZADO Y NAVEGACIÓN --- */
+        header {
+            background-image: linear-gradient(rgba(0, 132, 255, 0.6), rgba(0, 132, 255, 0.8)), url('logo\ lavnaderia.jpeg');
+            background-size: cover;
+            background-position: center;
+            color: var(--blanco);
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            text-shadow: 3px 3px 0px var(--azul-oscuro);
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            font-weight: bold;
+            background: rgba(247, 208, 44, 0.9);
+            color: var(--negro-texto);
+            display: inline-block;
+            padding: 5px 20px;
+            border-radius: 20px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            background: var(--azul-mar);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        nav a {
+            padding: 15px 25px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            background: var(--azul-oscuro);
+            color: var(--amarillo-bob);
+        }
+
+        /* --- CONTENEDOR PRINCIPAL --- */
+        .container {
+            padding: 30px 10%;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        section {
+            background: var(--blanco);
+            padding: 40px;
+            border-radius: 20px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border-bottom: 5px solid var(--azul-mar);
+        }
+
+        h2 { 
+            color: var(--azul-mar); 
+            font-weight: 900;
+            font-size: 2rem;
+            border-bottom: 3px solid var(--azul-claro);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        /* --- SECCIÓN HERO (IMAGEN REAL DE LA LAVANDERÍA) --- */
+        .hero-section {
+            text-align: center;
+            background: var(--blanco);
+        }
+        
+        .hero-image-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto 20px;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            border: 6px solid var(--azul-claro);
+        }
+
+        .hero-image-container img {
+            width: 100%;
+            display: block;
+            transition: transform 0.5s;
+        }
+
+        .hero-image-container img:hover {
+            transform: scale(1.05);
+        }
+
+        /* --- BUSCADOR --- */
+        .search-box {
+            position: relative;
+            max-width: 600px;
+            margin: 20px auto;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 15px 50px 15px 20px;
+            border-radius: 40px;
+            border: 3px solid var(--azul-claro);
+            font-size: 1.1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-box input:focus {
+            border-color: var(--amarillo-bob);
+            box-shadow: 0 5px 20px rgba(247, 208, 44, 0.3);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.3rem;
+        }
+
+        .item-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .item-tag {
+            background: var(--azul-claro);
+            color: var(--azul-oscuro);
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .item-tag:hover {
+            background: var(--amarillo-bob);
+            color: var(--negro-texto);
+            transform: translateY(-3px);
+        }
+
+        /* --- PRECIOS (TABLA) --- */
+        .tabla-precios {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .tabla-precios th {
+            background-color: var(--azul-mar);
+            color: white;
+            padding: 15px;
+            font-size: 1.1rem;
+        }
+
+        .tabla-precios td {
+            padding: 15px;
+            text-align: center;
+            border: 1px solid #eee;
+            font-size: 1.05rem;
+        }
+
+        .tabla-precios tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        /* --- PRODUCTOS (GRID) --- */
+        .grid-articulos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            border: 2px solid var(--azul-claro);
+            padding: 25px;
+            text-align: center;
+            border-radius: 20px;
+            background: white;
+            transition: all 0.3s;
+        }
+
+        .card:hover { 
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,132,255,0.1);
+            border-color: var(--amarillo-bob);
+        }
+
+        .card h3 {
+            color: var(--azul-oscuro);
+            margin-bottom: 10px;
+        }
+
+        .btn-comprar {
+            background-color: var(--azul-mar);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            cursor: pointer;
+            border-radius: 25px;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: 0.3s;
+            margin-top: 15px;
+            width: 100%;
+        }
+
+        .btn-comprar:hover {
+            background-color: var(--amarillo-bob);
+            color: var(--negro-texto);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        /* --- MISIÓN Y VISIÓN --- */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: #fffdf3;
+            padding: 35px;
+            border-radius: 20px;
+            text-align: center;
+            border: 2px dashed var(--amarillo-bob);
+        }
+
+        /* --- RESERVAS --- */
+        .booking-box {
+            background: var(--azul-claro);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            border: 3px dashed var(--azul-mar);
+        }
+
+        .btn-booking {
+            background-color: var(--amarillo-bob);
+            color: var(--negro-texto);
+            border: none;
+            padding: 15px 40px;
+            cursor: pointer;
+            border-radius: 50px;
+            font-weight: 900;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 0px #c6a623;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-booking:hover {
+            transform: translateY(3px);
+            box-shadow: 0 2px 0px #c6a623;
+        }
+
+        /* --- MEDIOS SOCIALES Y MAPA --- */
+        .map-social-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .mapa-placeholder {
+            background: #eee;
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 15px;
+            font-weight: bold;
+            color: #666;
+            border: 2px solid var(--azul-claro);
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            height: 100%;
+        }
+
+        .social-icon {
+            font-size: 2.5rem;
+            text-decoration: none;
+            transition: transform 0.3s;
+        }
+        .social-icon:hover { transform: scale(1.2); }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: var(--azul-oscuro);
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            header h1 { font-size: 2rem; }
+            nav { flex-direction: column; text-align: center; }
+            .container { padding: 15px; }
+            section { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bubbles">
+        <div class="bubble"></div><div class="bubble"></div><div class="bubble"></div>
+        <div class="bubble"></div><div class="bubble"></div><div class="bubble"></div>
+        <div class="bubble"></div>
+    </div>
+
+    <header>
+        <h1>Lavandería La Esponja Feliz 🧽🫧</h1>
+        <p>Pureza y frescura en cada prenda</p>
+    </header>
+
+    <nav>
+        <a href="#inicio">Inicio</a>
+        <a href="#precios">Precios</a>
+        <a href="#articulos">Artículos</a>
+        <a href="#reservas">Reservas</a>
+        <a href="#contacto">Ubicación</a>
+    </nav>
+
+    <div class="container">
+        
+        <section id="inicio" class="hero-section">
+            <h2>¡Bienvenidos a la marea!</h2>
+            <div class="hero-image-container">
+                <img src="hero-laundry.jpg" alt="Instalaciones de la Lavandería Esponja Feliz">
+            </div>
+            <p style="font-size: 1.2rem; margin: 20px 0;"><strong>¡NO DEJES PARA MAÑANA LO QUE PUEDAS LAVAR HOY!</strong></p>
+            
+            <div class="search-box">
+                <input type="text" id="itemSearch" placeholder="¿Qué quieres lavar hoy? Ej: Cobijas, Cortinas..." onkeyup="filterItems()">
+                <span class="search-icon">🔍</span>
+            </div>
+
+            <div id="itemList" class="item-grid">
+                <div class="item-tag" onclick="selectTag('Cobijas')">Cobijas</div>
+                <div class="item-tag" onclick="selectTag('Peluches')">Peluches</div>
+                <div class="item-tag" onclick="selectTag('Edredones')">Edredones</div>
+                <div class="item-tag" onclick="selectTag('Uniformes')">Uniformes</div>
+                <div class="item-tag" onclick="selectTag('Cortinas')">Cortinas</div>
+                <div class="item-tag" onclick="selectTag('Camisas')">Camisas</div>
+            </div>
+        </section>
+
+        <section id="precios">
+            <h2>Nuestros Precios Mágicos</h2>
+            <table class="tabla-precios">
+                <thead>
+                    <tr>
+                        <th>Servicio</th>
+                        <th>Descripción</th>
+                        <th>Precio</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>🧺 Lavado Profesional</td>
+                        <td>Limpieza profunda con burbujas mágicas</td>
+                        <td><strong>Q17.00</strong></td>
+                    </tr>
+                    <tr>
+                        <td>🌬️ Secado Express</td>
+                        <td>Secado rápido al viento marino controlado</td>
+                        <td><strong>Q25.00</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="articulos">
+            <h2>Tienda de Productos de Don Cangrejo</h2>
+            <div class="grid-articulos">
+                <div class="card">
+                    <h3>Jabón Concentrado "Don Cangrejo"</h3>
+                    <p>Alto rendimiento y limpieza profunda para remover la grasa de Cangreburguers de cada carga.</p>
+                    <p style="margin-top: 10px;"><strong style="color: var(--azul-oscuro); font-size: 1.2rem;">Precio: Q30.00</strong></p>
+                    <button class="btn-comprar">Comprar ahora</button>
+                </div>
+                <div class="card">
+                    <h3>Suavizante "Calamardo"</h3>
+                    <p>Fragancia duradera, sofisticada y suavidad máxima para que no andes de mal humor.</p>
+                    <p style="margin-top: 10px;"><strong style="color: var(--azul-oscuro); font-size: 1.2rem;">Precio: Q25.00</strong></p>
+                    <button class="btn-comprar">Comprar ahora</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="feature-card">
+                <h2>Nuestra Misión</h2>
+                <p style="text-align:justify;">Brindar un servicio de lavandería innovador y de alta calidad, ofreciendo una experiencia confiable, limpia y eficiente bajo el mar para toda la comunidad.</p>
+            </div>
+            <div class="feature-card">
+                <h2>Nuestra Visión</h2>
+                <p style="text-align:justify;">Convertirnos en la lavandería líder de la región, reconocida por transformar el tedioso cuidado de la ropa en una experiencia feliz que eleva tu confianza.</p>
+            </div>
+        </section>
+
+        <section id="reservas">
+            <h2>Hacer una Reservación</h2>
+            <div class="booking-box">
+                <div style="font-size: 3rem; margin-bottom: 15px;">📋</div>
+                <p style="font-size: 1.1rem; color: var(--azul-oscuro); margin-bottom: 25px;">
+                    Para brindarte una atención digna de la realeza de la Atlántida, gestionamos nuestras citas a través de nuestro formulario oficial.
+                </p>
+                <a href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=mBexQLre1E2qZ4wm97GLGDMR1ZK6N7xJg4OBIdM5l5xUMDFXOEc0MUo4UDRLNzNYQThMTjlNSlZWOS4u" target="_blank" class="btn-booking">
+                    Ir al Formulario de Reserva
+                </a>
+            </div>
+        </section>
+
+        <section id="contacto">
+            <h2>¿Dónde estamos?</h2>
+            <div class="map-social-container">
+                <div>
+                    
+                    
+                        🗺️ <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15444.6083167123!2d-90.5892806!3d14.588836!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8589a11413a967fb%3A0x6b539c09c2a688a4!2sVilla%20Nueva%2C%20Guatemala!5e0!3m2!1ses!2sgt!4v1700000000000" 
+                width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy">
+            </iframe>
+                    </div> <img src="bob.jpeg"width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy">
+                    <section id="ubicacion"> 
+
+                    </div>
+                <div>
+                    <h3 style="text-align: center; color: var(--azul-mar); margin-bottom: 15px;">¡Síguenos en Redes!</h3>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon">🟢💬</a> <a href="#" class="social-icon">📸</a> <a href="#" class="social-icon">🔵</a> </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>© 2026 Lavandería La Esponja Feliz - ¡Por el poder del jabón! 🧽🫧</p>
+    </footer>
+
+    <script>
+        function filterItems() {
+            let input = document.getElementById('itemSearch').value.toLowerCase();
+            let tags = document.getElementsByClassName('item-tag');
+            
+            for (let i = 0; i < tags.length; i++) {
+                if (tags[i].innerText.toLowerCase().includes(input)) {
+                    tags[i].style.display = "inline-block";
+                } else {
+                    tags[i].style.display = "none";
+                }
+            }
+        }
+
+        function selectTag(itemName) {
+            document.getElementById('itemSearch').value = itemName;
+            filterItems();
+        }
+    </script>
+</body>
+</html>
